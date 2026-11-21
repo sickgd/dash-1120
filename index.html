@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>经营看板 · 月度 / 日度</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1220;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+.bar{height:56px;display:flex;align-items:center;gap:8px;padding:0 16px;background:#0b1220;border-bottom:1px solid rgba(255,255,255,.1);color:#fff;overflow-x:auto;white-space:nowrap}
+.brand{font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.55);margin-right:6px}
+.tab{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:rgba(255,255,255,.82);padding:8px 12px;border-radius:9px;font-size:12px;cursor:pointer;font-family:inherit}
+.tab.active{background:#2563eb;border-color:#2563eb;color:#fff}.tab:hover{background:rgba(255,255,255,.12)}
+.tab.disabled{opacity:.38;cursor:not-allowed}.hint{margin-left:auto;font-size:11px;color:rgba(255,255,255,.45)}
+.frame{display:block;width:100%;height:calc(100vh - 56px);border:0;background:#f5f7fb}
+@media(max-width:760px){.hint{display:none}.bar{padding:0 8px;gap:5px}.tab{padding:7px 9px;font-size:11px}}
+</style></head><body>
+<div class="bar">
+ <div class="brand">经营看板 · PERIOD VIEW</div>
+ <button class="tab active" data-src="monthly.html">月度累计 11.1-11.19</button>
+ <button class="tab" data-src="day-11.19.html">11.19 昨日</button>
+ <button class="tab" data-src="day-11.18.html">11.18</button>
+ <button class="tab" data-src="day-11.17.html">11.17</button>
+ <button class="tab" data-src="day-11.16.html">11.16</button>
+ <button class="tab" data-src="day-11.11.html">11.11</button>
+ <button class="tab disabled">11.8-11.10 暂无</button>
+ <div class="hint">11.8-11.10 历史报表未拆分售前/售后，暂未加入</div>
+</div>
+<iframe id="frame" class="frame" src="monthly.html" allowfullscreen></iframe>
+<script>
+(function(){const f=document.getElementById('frame');const tabs=[...document.querySelectorAll('.tab:not(.disabled)')];const K='dash_public_v1';
+function sel(b,s){tabs.forEach(t=>t.classList.toggle('active',t===b));f.src=b.dataset.src;if(s){try{localStorage.setItem(K,b.dataset.src)}catch(e){}}}
+tabs.forEach(b=>b.addEventListener('click',()=>sel(b,true)));let v=null;try{v=localStorage.getItem(K)}catch(e){}if(v){const b=tabs.find(x=>x.dataset.src===v);if(b)sel(b,false)}})();
+</script></body></html>
